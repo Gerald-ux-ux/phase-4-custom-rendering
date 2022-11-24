@@ -9,7 +9,13 @@ class CheesesController < ApplicationController
   # GET /cheeses/:id
   def show
     cheese = Cheese.find_by(id: params[:id])
-    render json: cheese
+    if cheese
+      render json: cheese , only: [:id, :name, :is_best_seller]
+    else
+      render json: {error: "Couldn't find cheese"}, status: :not_found
+    end
+    
+    
   end
 
 end
